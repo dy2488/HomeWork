@@ -26,7 +26,10 @@ public class QuestionActivity extends Activity {
 
     private List<Question> questionList;
     private int score = 0;
+    private long timeScore=0;
     private int questionID = 0;
+    private int gameTime=60000;
+    private int gameTimeTest=5000;
 
     private Question currentQ;
     private TextView txtQuestion, times, scored;
@@ -63,7 +66,7 @@ public class QuestionActivity extends Activity {
         times.setText("00:02:00");
 
         // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
-        CounterClass timer = new CounterClass(60000, 1000);
+        CounterClass timer = new CounterClass(gameTime, 1000);
         timer.start();
 
         // button click listeners
@@ -111,7 +114,7 @@ public class QuestionActivity extends Activity {
             finish();
         }
 
-        if (questionID < 20) {
+        if (questionID < 21) {
             // if questions are not over then do this
             currentQ = questionList.get(questionID);
             setQuestionView();
@@ -119,7 +122,7 @@ public class QuestionActivity extends Activity {
             // if over do this
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
             Bundle b = new Bundle();
-            b.putInt("score", score); // Your score
+            b.putInt("score", score+(int)timeScore); // Your score
             intent.putExtras(b); // Put your score to your next
             startActivity(intent);
             finish();
@@ -138,11 +141,27 @@ public class QuestionActivity extends Activity {
         @Override
         public void onFinish() {
             times.setText("Time is up");
+            // if unlucky start activity and finish the game
+            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+
+            // passing the int value
+            Bundle b = new Bundle();
+            b.putInt("score", score); // Your score
+            intent.putExtras(b); // Put your score to your next
+            startActivity(intent);
+            finish();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
             long millis = millisUntilFinished;
+            //남은 시간을 점수로 계산
+            //timeScore=hour*3600+min*60+sec
+            timeScore=(TimeUnit.MILLISECONDS.toHours(millis))*3600+(TimeUnit.MILLISECONDS.toMinutes(millis)
+                    - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS
+                    .toHours(millis)))*60+(TimeUnit.MILLISECONDS.toSeconds(millis)
+                    - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
+                    .toMinutes(millis)));
             String hms = String.format( "%02d:%02d:%02d",
                     TimeUnit.MILLISECONDS.toHours(millis),
                     TimeUnit.MILLISECONDS.toMinutes(millis)

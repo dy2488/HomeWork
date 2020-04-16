@@ -24,6 +24,9 @@ public class QuizDBOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_OPTB = "optb"; // option b
     private static final String KEY_OPTC = "optc"; // option c
 
+    private String questionNum1 = String.valueOf((int)Math.random()%10);
+    private String questionNum2 = String.valueOf((int)Math.random()%10);
+
     private SQLiteDatabase database;
 
     public QuizDBOpenHelper(Context context) {
@@ -38,13 +41,16 @@ public class QuizDBOpenHelper extends SQLiteOpenHelper {
                 + " TEXT, " + KEY_ANSWER + " TEXT, " + KEY_OPTA + " TEXT, "
                 + KEY_OPTB + " TEXT, " + KEY_OPTC + " TEXT)";
         db.execSQL(sql);
+        db.execSQL("DELETE FROM "+TABLE_QUEST);
         addQuestion();
-        // db.close();
+//      db.close();
     }
 
     private void addQuestion() {
         Question q1 = new Question("5+2 = ?", "7", "8", "6", "7");
         addQuestion(q1);
+//        Question q1 = new Question(questionNum1+"+"+questionNum2+" = ?", questionNum1+questionNum2, questionNum1+questionNum2+1, questionNum1+questionNum2, questionNum1+questionNum2);
+//        addQuestion(q1);
         Question q2 = new Question("2+18 = ?", "18", "19", "20", "20");
         addQuestion(q2);
         Question q3 = new Question("10-3 = ?", "6", "7", "8", "7");
