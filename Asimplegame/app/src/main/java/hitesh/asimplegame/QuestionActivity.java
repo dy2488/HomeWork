@@ -35,9 +35,12 @@ public class QuestionActivity extends Activity {
     private TextView txtQuestion, times, scored;
     private Button button1, button2, button3;
 
+    // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
+    CounterClass timer = new CounterClass(gameTime, 1000);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -65,8 +68,6 @@ public class QuestionActivity extends Activity {
         setQuestionView();
         times.setText("00:02:00");
 
-        // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
-        CounterClass timer = new CounterClass(gameTime, 1000);
         timer.start();
 
         // button click listeners
@@ -112,6 +113,7 @@ public class QuestionActivity extends Activity {
             intent.putExtras(b); // Put your score to your next
             startActivity(intent);
             finish();
+            timer.cancel();
         }
 
         if (questionID < 21) {
@@ -126,6 +128,7 @@ public class QuestionActivity extends Activity {
             intent.putExtras(b); // Put your score to your next
             startActivity(intent);
             finish();
+            timer.cancel();
         }
     }
 
@@ -134,6 +137,7 @@ public class QuestionActivity extends Activity {
     @SuppressLint("NewApi")
     public class CounterClass extends CountDownTimer
     {
+
         public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -155,6 +159,7 @@ public class QuestionActivity extends Activity {
         @Override
         public void onTick(long millisUntilFinished) {
             long millis = millisUntilFinished;
+
             //남은 시간을 점수로 계산
             //timeScore=hour*3600+min*60+sec
             timeScore=(TimeUnit.MILLISECONDS.toHours(millis))*3600+(TimeUnit.MILLISECONDS.toMinutes(millis)
@@ -162,6 +167,7 @@ public class QuestionActivity extends Activity {
                     .toHours(millis)))*60+(TimeUnit.MILLISECONDS.toSeconds(millis)
                     - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS
                     .toMinutes(millis)));
+
             String hms = String.format( "%02d:%02d:%02d",
                     TimeUnit.MILLISECONDS.toHours(millis),
                     TimeUnit.MILLISECONDS.toMinutes(millis)
@@ -174,6 +180,7 @@ public class QuestionActivity extends Activity {
             Log.d(TAG, "current time: " + hms);
             times.setText(hms);
         }
+
 
     }
 

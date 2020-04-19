@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class QuizDBOpenHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
     // Database Name
     private static final String DATABASE_NAME = "mathsone";
     // tasks table name
@@ -24,13 +23,16 @@ public class QuizDBOpenHelper extends SQLiteOpenHelper {
     private static final String KEY_OPTB = "optb"; // option b
     private static final String KEY_OPTC = "optc"; // option c
 
-    private String questionNum1 = String.valueOf((int)Math.random()%10);
-    private String questionNum2 = String.valueOf((int)Math.random()%10);
+    //문제 수
+    private static final int NumberOfQuestion=21;
 
     private SQLiteDatabase database;
 
+    //DATABASE_VERSTION
+    private static int DATABASE_RANDOMING =2;
+
     public QuizDBOpenHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_RANDOMING);
     }
 
     @Override
@@ -41,62 +43,76 @@ public class QuizDBOpenHelper extends SQLiteOpenHelper {
                 + " TEXT, " + KEY_ANSWER + " TEXT, " + KEY_OPTA + " TEXT, "
                 + KEY_OPTB + " TEXT, " + KEY_OPTC + " TEXT)";
         db.execSQL(sql);
-        db.execSQL("DELETE FROM "+TABLE_QUEST);
         addQuestion();
 //      db.close();
     }
 
     private void addQuestion() {
-        Question q1 = new Question("5+2 = ?", "7", "8", "6", "7");
-        addQuestion(q1);
-//        Question q1 = new Question(questionNum1+"+"+questionNum2+" = ?", questionNum1+questionNum2, questionNum1+questionNum2+1, questionNum1+questionNum2, questionNum1+questionNum2);
+
+        RandomQuestion rq[]=new RandomQuestion[NumberOfQuestion];
+        Question q[]=new Question[NumberOfQuestion];
+
+        for(int i=0;i<NumberOfQuestion;i++){
+            rq[i]=new RandomQuestion();
+            addQuestion(rq[i]);
+        }
+
+//        Question q1 = new Question("5+2 = ?", "7", "8", "6", "7");
 //        addQuestion(q1);
-        Question q2 = new Question("2+18 = ?", "18", "19", "20", "20");
-        addQuestion(q2);
-        Question q3 = new Question("10-3 = ?", "6", "7", "8", "7");
-        addQuestion(q3);
-        Question q4 = new Question("5+7 = ?", "12", "13", "14", "12");
-        addQuestion(q4);
-        Question q5 = new Question("3-1 = ?", "1", "3", "2", "2");
-        addQuestion(q5);
-        Question q6 = new Question("0+1 = ?", "1", "0", "10", "1");
-        addQuestion(q6);
-        Question q7 = new Question("9-9 = ?", "0", "9", "1", "0");
-        addQuestion(q7);
-        Question q8 = new Question("3+6 = ?", "8", "7", "9", "9");
-        addQuestion(q8);
-        Question q9 = new Question("1+5 = ?", "6", "7", "5", "6");
-        addQuestion(q9);
-        Question q10 = new Question("7-5 = ?", "3", "2", "6", "2");
-        addQuestion(q10);
-        Question q11 = new Question("7-2 = ?", "7", "6", "5", "5");
-        addQuestion(q11);
-        Question q12 = new Question("3+5 = ?", "8", "7", "5", "8");
-        addQuestion(q12);
-        Question q13 = new Question("0+6 = ?", "7", "6", "5", "6");
-        addQuestion(q13);
-        Question q14 = new Question("12-10 = ?", "1", "2", "3", "2");
-        addQuestion(q14);
-        Question q15 = new Question("12+2 = ?", "14", "15", "16", "14");
-        addQuestion(q15);
-        Question q16 = new Question("2-1 = ?", "2", "1", "0", "1");
-        addQuestion(q16);
-        Question q17 = new Question("6-6 = ?", "6", "12", "0", "0");
-        addQuestion(q17);
-        Question q18 = new Question("5-1 = ?", "4", "3", "2", "4");
-        addQuestion(q18);
-        Question q19 = new Question("4+2 = ?", "6", "7", "5", "6");
-        addQuestion(q19);
-        Question q20 = new Question("5+1 = ?", "6", "7", "5", "6");
-        addQuestion(q20);
-        Question q21 = new Question("5-4 = ?", "5", "4", "1", "1");
-        addQuestion(q21);
+//        Question q2 = new Question("2+18 = ?", "18", "19", "20", "20");
+//        addQuestion(q2);
+//        Question q3 = new Question("10-3 = ?", "6", "7", "8", "7");
+//        addQuestion(q3);
+//        Question q4 = new Question("5+7 = ?", "12", "13", "14", "12");
+//        addQuestion(q4);
+//        Question q5 = new Question("3-1 = ?", "1", "3", "2", "2");
+//        addQuestion(q5);
+//        Question q6 = new Question("0+1 = ?", "1", "0", "10", "1");
+//        addQuestion(q6);
+//        Question q7 = new Question("9-9 = ?", "0", "9", "1", "0");
+//        addQuestion(q7);
+//        Question q8 = new Question("3+6 = ?", "8", "7", "9", "9");
+//        addQuestion(q8);
+//        Question q9 = new Question("1+5 = ?", "6", "7", "5", "6");
+//        addQuestion(q9);
+//        Question q10 = new Question("7-5 = ?", "3", "2", "6", "2");
+//        addQuestion(q10);
+//        Question q11 = new Question("7-2 = ?", "7", "6", "5", "5");
+//        addQuestion(q11);
+//        Question q12 = new Question("3+5 = ?", "8", "7", "5", "8");
+//        addQuestion(q12);
+//        Question q13 = new Question("0+6 = ?", "7", "6", "5", "6");
+//        addQuestion(q13);
+//        Question q14 = new Question("12-10 = ?", "1", "2", "3", "2");
+//        addQuestion(q14);
+//        Question q15 = new Question("12+2 = ?", "14", "15", "16", "14");
+//        addQuestion(q15);
+//        Question q16 = new Question("2-1 = ?", "2", "1", "0", "1");
+//        addQuestion(q16);
+//        Question q17 = new Question("6-6 = ?", "6", "12", "0", "0");
+//        addQuestion(q17);
+//        Question q18 = new Question("5-1 = ?", "4", "3", "2", "4");
+//        addQuestion(q18);
+//        Question q19 = new Question("4+2 = ?", "6", "7", "5", "6");
+//        addQuestion(q19);
+//        Question q20 = new Question("5+1 = ?", "6", "7", "5", "6");
+//        addQuestion(q20);
+//        Question q21 = new Question("5-4 = ?", "5", "4", "1", "1");
+//        addQuestion(q21);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUEST);
+        // Create tables again
+        onCreate(db);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int newV, int oldV){
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS "  +TABLE_QUEST);
         // Create tables again
         onCreate(db);
     }
@@ -137,5 +153,15 @@ public class QuizDBOpenHelper extends SQLiteOpenHelper {
         }
         // return quest list
         return quesList;
+    }
+
+    //DATABASE_VERSION 을 1과 2를 왔다갔다하면서 DATABASE 갱신하게 하는 함수
+    public static void setDatabaseRandoming(){
+        if(DATABASE_RANDOMING<=1){
+            DATABASE_RANDOMING=2;
+        }
+        else{
+            DATABASE_RANDOMING=1;
+        }
     }
 }

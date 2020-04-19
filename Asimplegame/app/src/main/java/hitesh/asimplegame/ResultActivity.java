@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import static hitesh.asimplegame.QuizDBOpenHelper.setDatabaseRandoming;
 
 public class ResultActivity extends Activity {
 
@@ -15,6 +16,8 @@ public class ResultActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
 
+
+
 		TextView textResult = (TextView) findViewById(R.id.textResult);
 		Bundle b = getIntent().getExtras();
 		int score = b.getInt("score");
@@ -22,7 +25,11 @@ public class ResultActivity extends Activity {
 	}
 
 	public void playagain(View o) {
-			Intent intent = new Intent(this, QuestionActivity.class);
-			startActivity(intent);
+
+		//다시시작시 데이터베이스 갱신
+		setDatabaseRandoming();
+
+		Intent intent = new Intent(this, QuestionActivity.class);
+		startActivity(intent);
 	}
 }
