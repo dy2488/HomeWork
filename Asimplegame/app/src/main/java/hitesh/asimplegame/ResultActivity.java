@@ -11,17 +11,19 @@ import static hitesh.asimplegame.QuizDBOpenHelper.setDatabaseRandoming;
 
 public class ResultActivity extends Activity {
 
+	private static int score;
+	private static int firstScore;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
 
-
-
 		TextView textResult = (TextView) findViewById(R.id.textResult);
 		Bundle b = getIntent().getExtras();
-		int score = b.getInt("score");
+		score = b.getInt("score");
         textResult.setText("Your score is " + " " + score + ". Thanks for playing my game.");
+
 	}
 
 	public void playagain(View o) {
@@ -29,7 +31,17 @@ public class ResultActivity extends Activity {
 		//다시시작시 데이터베이스 갱신
 		setDatabaseRandoming();
 
+
 		Intent intent = new Intent(this, QuestionActivity.class);
 		startActivity(intent);
+	}
+
+	public static int getScore(){
+		if(score>firstScore){
+			firstScore=score;
+			return firstScore;
+		}else{
+			return firstScore;
+		}
 	}
 }

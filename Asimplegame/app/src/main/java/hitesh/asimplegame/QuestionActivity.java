@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
 public class QuestionActivity extends Activity {
     private static final String TAG = QuestionActivity.class.getSimpleName();
 
@@ -29,14 +28,14 @@ public class QuestionActivity extends Activity {
     private long timeScore=0;
     private int questionID = 0;
     private int gameTime=60000;
-    private int gameTimeTest=5000;
+    private int oneSec=1000;
 
     private Question currentQ;
     private TextView txtQuestion, times, scored;
     private Button button1, button2, button3;
 
     // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
-    CounterClass timer = new CounterClass(gameTime, 1000);
+    CounterClass timer = new CounterClass(gameTime, oneSec);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +113,7 @@ public class QuestionActivity extends Activity {
             startActivity(intent);
             finish();
             timer.cancel();
+
         }
 
         if (questionID < 21) {
@@ -193,6 +193,4 @@ public class QuestionActivity extends Activity {
 
         questionID++;
     }
-
-
 }
