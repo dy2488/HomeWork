@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "569489937761",
+    "firebase_url": "https://a-simple-moblie-game.firebaseio.com",
+    "project_id": "a-simple-moblie-game",
+    "storage_bucket": "a-simple-moblie-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569489937761:android:9a2a4324706a84df522120",
+        "android_client_info": {
+          "package_name": "hitesh.asimplegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569489937761-72trekkra9hna9rslbrsq51rkhhq9e8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hitesh.asimplegame",
+            "certificate_hash": "906db8ea2956d23b8976718f07b608318c3ca28a"
+          }
+        },
+        {
+          "client_id": "569489937761-4lsb995qji78dh36f6ge153kaijtf1q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYyNLwCw2lSXqqQHGBLPLv0ol3iesTFCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569489937761-4lsb995qji78dh36f6ge153kaijtf1q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -19,9 +19,7 @@
                 android:resource="@xml/ranking_widget_info" />
         </receiver>
 
-        <activity
-            android:name=".QuestionActivity"
-            android:label="@string/app_name"
+        <activity android:name=".Login"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +27,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".SignUp"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
