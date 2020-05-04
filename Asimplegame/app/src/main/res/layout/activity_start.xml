@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="#FF7F24"
+    >
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginTop="150dp"
+        app:srcCompat="@drawable/app_name" />
+
+    <Button
+                android:id="@+id/but1"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:text="play"
+                android:textSize="35sp"
+
+                />
+            <Button
+                android:id="@+id/but2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@android:color/black"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="20dp"
+                android:text="register"
+                android:textSize="35sp"
+                />
+            <Button
+                android:id="@+id/but3"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="EXIT"
+                android:textSize="35sp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+
+                />
+
+
+
+</LinearLayout>

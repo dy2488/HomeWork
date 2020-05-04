@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QuestionActivity extends Activity {
     private static final String TAG = QuestionActivity.class.getSimpleName();
@@ -29,10 +31,13 @@ public class QuestionActivity extends Activity {
     private int questionID = 0;
     private int gameTime=60000;
     private int oneSec=1000;
+    private int hintLeft=0;
+    private int numOfQuestion = 1; // for testing
+    private boolean hintUsed = true;
 
     private Question currentQ;
     private TextView txtQuestion, times, scored;
-    private Button button1, button2, button3;
+    private Button button1, button2, button3, hintBtn;
 
     // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
     CounterClass timer = new CounterClass(gameTime, oneSec);
@@ -47,6 +52,8 @@ public class QuestionActivity extends Activity {
         questionList = db.getAllQuestions();  // this will fetch all quetonall questions
         currentQ = questionList.get(questionID); // the current question
 
+        startService(new Intent(QuestionActivity.this,MyService2.class));
+
         txtQuestion = (TextView) findViewById(R.id.txtQuestion);
         // the textview in which the question will be displayed
 
@@ -55,6 +62,7 @@ public class QuestionActivity extends Activity {
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
+        hintBtn = (Button) findViewById(R.id.hint_btn);
 
         // the textview in which score will be displayed
         scored = (TextView) findViewById(R.id.score);
@@ -76,23 +84,56 @@ public class QuestionActivity extends Activity {
                 // passing the button text to other method
                 // to check whether the anser is correct or not
                 // same for all three buttons
+                hintUsed=true;
                 getAnswer(button1.getText().toString());
+                button1.setBackgroundColor(Color.WHITE);
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hintUsed=true;
                 getAnswer(button2.getText().toString());
+                button2.setBackgroundColor(Color.WHITE);
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hintUsed=true;
                 getAnswer(button3.getText().toString());
+                button3.setBackgroundColor(Color.WHITE);
             }
         });
+        hintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(hintUsed==true) {
+                    if (hintLeft < 3) {
+                        hintLeft++;
+                        hintUsed=false;
+                        if (hintResult(button1.getText().toString())) {
+                            button1.setBackgroundColor(Color.GREEN);
+                        } else if (hintResult(button2.getText().toString())) {
+                            button2.setBackgroundColor(Color.GREEN);
+                        } else if (hintResult(button3.getText().toString())) {
+                            button3.setBackgroundColor(Color.GREEN);
+                        }
+                    } else {
+                        Toast.makeText(QuestionActivity.this, "you don't have any hint", Toast.LENGTH_LONG).show();
+                    }
+                }else {
+                    Toast.makeText(QuestionActivity.this,"green is answer",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public boolean hintResult(String a){
+        return a.equals(currentQ.getANSWER());
     }
 
     public void getAnswer(String AnswerString) {
@@ -104,6 +145,7 @@ public class QuestionActivity extends Activity {
             scored.setText("Score : " + score);
         } else {
             // if unlucky start activity and finish the game
+            stopService(new Intent(QuestionActivity.this,MyService2.class));
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
 
             // passing the int value
@@ -116,12 +158,13 @@ public class QuestionActivity extends Activity {
 
         }
 
-        if (questionID < 21) {
+        if (questionID < numOfQuestion) {
             // if questions are not over then do this
             currentQ = questionList.get(questionID);
             setQuestionView();
         } else {
             // if over do this
+            stopService(new Intent(QuestionActivity.this,MyService2.class));
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
             Bundle b = new Bundle();
             b.putInt("score", score+(int)timeScore); // Your score
@@ -147,6 +190,7 @@ public class QuestionActivity extends Activity {
             times.setText("Time is up");
             // if unlucky start activity and finish the game
             Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+            stopService(new Intent(QuestionActivity.this,MyService2.class));
 
             // passing the int value
             Bundle b = new Bundle();
@@ -179,6 +223,15 @@ public class QuestionActivity extends Activity {
 
             Log.d(TAG, "current time: " + hms);
             times.setText(hms);
+            Log.d(TAG, "current time: " + hms);
+            times.setText(hms);
+            if ((int)TimeUnit.MILLISECONDS.toSeconds(millis) <= 10) {
+                String hms1 = String.format("%d",TimeUnit.MILLISECONDS.toSeconds(millis));
+                times.setTextColor(Color.BLACK);
+                times.setTextSize(40);
+                times.setText(hms1);
+
+            }
         }
 
 

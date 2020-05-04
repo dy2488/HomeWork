@@ -41,7 +41,7 @@ public class SignUp extends AppCompatActivity {
                     createUser(editTextEmail.getText().toString(), editTextPassword.getText().toString(), editTextName.getText().toString());
                 } else {
                     // 이메일과 비밀번호가 공백인 경우
-                    Toast.makeText(SignUp.this, "계정과 비밀번호를 입력하세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, "Enter the email and pssword.", Toast.LENGTH_LONG).show();
                 }
             }
         });

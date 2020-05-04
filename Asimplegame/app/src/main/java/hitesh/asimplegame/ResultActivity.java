@@ -19,6 +19,9 @@ public class ResultActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
 
+		final Intent intent = new Intent(this,MyService3.class);
+		startService(intent);
+
 		TextView textResult = (TextView) findViewById(R.id.textResult);
 		Bundle b = getIntent().getExtras();
 		score = b.getInt("score");
@@ -30,9 +33,16 @@ public class ResultActivity extends Activity {
 
 		//다시시작시 데이터베이스 갱신
 		setDatabaseRandoming();
-
-
+		Intent bgmIntent = new Intent(this,MyService3.class);
+		stopService(bgmIntent);
 		Intent intent = new Intent(this, QuestionActivity.class);
+		startActivity(intent);
+	}
+
+	public void exitToTitle(View view){
+		Intent bgmIntent = new Intent(this,MyService3.class);
+		stopService(bgmIntent);
+		Intent intent = new Intent(this,StartActivity.class);
 		startActivity(intent);
 	}
 
