@@ -59,7 +59,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
-            android:hint="password" />
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textIsSelectable="false" />
 
         <Button
             android:id="@+id/button_sign_up"

@@ -32,7 +32,7 @@ public class QuestionActivity extends Activity {
     private int gameTime=60000;
     private int oneSec=1000;
     private int hintLeft=0;
-    private int numOfQuestion = 1; // for testing
+    private int numOfQuestion = 21; // for testing
     private boolean hintUsed = true;
 
     private Question currentQ;
