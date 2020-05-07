@@ -14,12 +14,12 @@ public class StartActivity extends Activity {
         final Intent intent = new Intent(StartActivity.this, MyService1.class);
         startService(intent);
         Button but1 = (Button)findViewById(R.id.but1);
-        Button but2= (Button)findViewById(R.id.but2);
+//        Button but2= (Button)findViewById(R.id.but2);
         Button but3 = (Button)findViewById(R.id.but3);
         but1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, QuestionActivity.class);
+                Intent i = new Intent(StartActivity.this,GradeActivity.class);
                 startActivity(i);
                 stopService(intent);
                 finish();
@@ -32,12 +32,12 @@ public class StartActivity extends Activity {
                 finish();
             }
         });
-        but2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        but2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 }
 

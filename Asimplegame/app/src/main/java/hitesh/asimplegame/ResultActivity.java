@@ -33,17 +33,17 @@ public class ResultActivity extends Activity {
 
 		//다시시작시 데이터베이스 갱신
 		setDatabaseRandoming();
-		Intent bgmIntent = new Intent(this,MyService3.class);
-		stopService(bgmIntent);
+		stopService(new Intent(ResultActivity.this,MyService3.class));
 		Intent intent = new Intent(this, QuestionActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public void exitToTitle(View view){
-		Intent bgmIntent = new Intent(this,MyService3.class);
-		stopService(bgmIntent);
+		stopService(new Intent(ResultActivity.this,MyService3.class));
 		Intent intent = new Intent(this,StartActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public static int getScore(){

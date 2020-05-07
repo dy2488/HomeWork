@@ -1,13 +1,5 @@
 package hitesh.asimplegame;
 
-/**
- * Created by H on 7/12/2015.
- */
-
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -22,18 +14,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class QuestionActivity extends Activity {
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-    private static final String TAG = QuestionActivity.class.getSimpleName();
+public class QuestionActivity3 extends Activity {
+    private static final String TAG = QuestionActivity3.class.getSimpleName();
 
     private List<Question> questionList;
 
     private int score = 0;
     private long timeScore=0;
     private int questionID = 0;
-    private int gameTime=60000;
-    private int oneSec=1000;
-    private int hintLeft=3;
+    private long gameTime=30000;
+    private long oneSec=1000;
+    private int hintLeft=0;
     private int numOfQuestion = 21; // for testing
     private boolean hintUsed = true;
     private Question currentQ;
@@ -41,19 +35,16 @@ public class QuestionActivity extends Activity {
     private Button button1, button2, button3, hintBtn;
 
     // A timer of 60 seconds to play for, with an interval of 1 second (1000 milliseconds)
-
     CounterClass timer = new CounterClass(gameTime, oneSec);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         QuizDBOpenHelper db = new QuizDBOpenHelper(this);  // my question bank class
         questionList = db.getAllQuestions();  // this will fetch all quetonall questions
         currentQ = questionList.get(questionID); // the current question
-        startService(new Intent(QuestionActivity.this,MyService2.class));
+        startService(new Intent(QuestionActivity3.this,MyService2.class));
         txtQuestion = (TextView) findViewById(R.id.txtQuestion);
         // the textview in which the question will be displayed
         // the three buttons,
@@ -111,7 +102,7 @@ public class QuestionActivity extends Activity {
             public void onClick(View v) {
 
                 if(hintUsed==true) {
-                    if ( hintLeft>0) {
+                    if (hintLeft >0) {
                         hintLeft--;
                         hintUsed=false;
                         if (hintResult(button1.getText().toString())) {
@@ -122,10 +113,10 @@ public class QuestionActivity extends Activity {
                             button3.setBackgroundColor(Color.GREEN);
                         }
                     } else {
-                        Toast.makeText(QuestionActivity.this, "you don't have any hint", Toast.LENGTH_LONG).show();
+                        Toast.makeText(QuestionActivity3.this, "you don't have any hint", Toast.LENGTH_LONG).show();
                     }
                 }else {
-                    Toast.makeText(QuestionActivity.this,"green is answer",Toast.LENGTH_LONG).show();
+                    Toast.makeText(QuestionActivity3.this,"green is answer",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -144,8 +135,8 @@ public class QuestionActivity extends Activity {
             scored.setText("Score : " + score);
         } else {
             // if unlucky start activity and finish the game
-            stopService(new Intent(QuestionActivity.this,MyService2.class));
-            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+            stopService(new Intent(QuestionActivity3.this,MyService2.class));
+            Intent intent = new Intent(QuestionActivity3.this, ResultActivity.class);
 
             // passing the int value
             Bundle b = new Bundle();
@@ -163,8 +154,8 @@ public class QuestionActivity extends Activity {
             setQuestionView();
         } else {
             // if over do this
-            stopService(new Intent(QuestionActivity.this,MyService2.class));
-            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+            stopService(new Intent(QuestionActivity3.this,MyService2.class));
+            Intent intent = new Intent(QuestionActivity3.this, ResultActivity.class);
             Bundle b = new Bundle();
             b.putInt("score", score+(int)timeScore); // Your score
             intent.putExtras(b); // Put your score to your next
@@ -188,8 +179,8 @@ public class QuestionActivity extends Activity {
         public void onFinish() {
             times.setText("Time is up");
             // if unlucky start activity and finish the game
-            Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
-            stopService(new Intent(QuestionActivity.this,MyService2.class));
+            Intent intent = new Intent(QuestionActivity3.this, ResultActivity.class);
+            stopService(new Intent(QuestionActivity3.this,MyService2.class));
 
             // passing the int value
             Bundle b = new Bundle();
