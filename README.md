@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 2020_a_simple_mobile_game_update
 
 2020.04.16
@@ -16,3 +17,6 @@
 
 2020.05.04
  1. first integration
+=======
+# Homework
+>>>>>>> git/master
